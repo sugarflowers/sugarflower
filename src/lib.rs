@@ -5,6 +5,7 @@ pub mod binaryfile;
 pub mod csvreader;
 pub mod textreader;
 pub mod clip;
+pub mod automation;
 
 use crate::path::Path;
 use crate::env::get_env;
