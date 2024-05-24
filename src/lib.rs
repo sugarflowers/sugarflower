@@ -6,6 +6,7 @@ pub mod csvreader;
 pub mod textreader;
 pub mod clip;
 pub mod automation;
+pub mod toml;
 
 use crate::path::Path;
 use crate::env::get_env;
@@ -14,5 +15,6 @@ use crate::binaryfile::{BinaryReader, BinaryWriter};
 use crate::csvreader::CSVReader;
 use crate::textreader::TextReader;
 use crate::clip::*;
+use crate::toml::read;
 
 
