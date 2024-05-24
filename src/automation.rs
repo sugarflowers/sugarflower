@@ -55,14 +55,14 @@ fn get_window_rect(hwnd: HWND) -> RECT {
 *     ex) get_window_infos();
 *
 */
-static mut WINDOW_INFOS: Vec<WindowInfo> = Vec::new();
+pub static mut WINDOW_INFOS: Vec<WindowInfo> = Vec::new();
 
-struct WindowInfo {
-    hwnd: HWND,
-    title: String,
+pub struct WindowInfo {
+    pub hwnd: HWND,
+    pub title: String,
 }
 
-unsafe extern "system" fn enum_windows_proc(hwnd: HWND, _lparam: isize) -> i32 {
+pub unsafe extern "system" fn enum_windows_proc(hwnd: HWND, _lparam: isize) -> i32 {
     let length = GetWindowTextLengthW(hwnd);
     let mut buffer = vec![0; length as usize + 1];
     GetWindowTextW(hwnd, buffer.as_mut_ptr(), length + 1);
@@ -73,7 +73,7 @@ unsafe extern "system" fn enum_windows_proc(hwnd: HWND, _lparam: isize) -> i32 {
     } 
     1
 }
-fn get_window_infos() {
+pub fn get_window_infos() {
     unsafe {
         EnumWindows(Some(enum_windows_proc), 0);
     }
@@ -84,7 +84,7 @@ fn get_window_infos() {
 * hwndで示されるウィンドウの所定の位置のピクセルの色を取得する。
 * colorの形式は 0xBBGGRR
 */
-fn get_pixel_color(hwnd: HWND, x: i32, y: i32) -> u32 {
+pub fn get_pixel_color(hwnd: HWND, x: i32, y: i32) -> u32 {
     unsafe {
         let hdc = GetDC(hwnd);
         let color = GetPixel(hdc, x, y);
@@ -95,7 +95,7 @@ fn get_pixel_color(hwnd: HWND, x: i32, y: i32) -> u32 {
 /*
 * マウスの移動とクリック
 */
-fn click(x: i32, y: i32) {
+pub fn click(x: i32, y: i32) {
     unsafe {
         SetCursorPos(x, y);
         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
@@ -107,7 +107,7 @@ fn click(x: i32, y: i32) {
 * マウスのカーソル位置の座標を取得
 * 座標は画面に対して絶対位置
 */
-fn get_cursor_pos() -> POINT {
+pub fn get_cursor_pos() -> POINT {
     let mut pt: POINT = POINT { x:0, y:0 };
     unsafe {
         GetCursorPos(&mut pt);
@@ -118,7 +118,7 @@ fn get_cursor_pos() -> POINT {
 /*
 * キーダウン
 */
-fn press_key(vk: u16) {
+pub fn press_key(vk: u16) {
     let mut input = INPUT {
         type_: INPUT_KEYBOARD,
         u: unsafe { std::mem::zeroed() },
@@ -137,7 +137,7 @@ fn press_key(vk: u16) {
 /*
 * キーアップ
 */
-fn release_key(vk: u16) {
+pub fn release_key(vk: u16) {
     let mut input = INPUT {
         type_: INPUT_KEYBOARD,
         u: unsafe { std::mem::zeroed() },
@@ -157,7 +157,7 @@ fn release_key(vk: u16) {
 
 
 #[test]
-fn function_test() {
+pub fn function_test() {
     get_window_infos();
     unsafe {
 
