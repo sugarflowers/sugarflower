@@ -1,6 +1,7 @@
 use std::io;
 //use binaryfile::BinaryReader;
 use crate::binaryfile::BinaryReader;
+use crate::sjis;
 use linked_hash_map::LinkedHashMap;
 
 pub struct CSVReader {
