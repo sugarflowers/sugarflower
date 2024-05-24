@@ -12,6 +12,6 @@ use crate::sjis::*;
 use crate::binaryfile::{BinaryReader, BinaryWriter};
 use crate::csvreader::CSVReader;
 use crate::textreader::TextReader;
-use crate::clip;
+use crate::clip::*;
 
 
