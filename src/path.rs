@@ -92,12 +92,12 @@ impl Path {
         }
     }
 
-    pub fn create_dir(&self, path: &str ) {
-        fs::create_dir_all(path).unwrap();
+    pub fn create_dir(&self) {
+        fs::create_dir_all(&self.path).unwrap();
     }
 
-    pub fn remove_dir(&self, path: &str ) {
-        fs::remove_dir_all(path).unwrap();
+    pub fn remove_dir(&self) {
+        fs::remove_dir_all(&self.path).unwrap();
     }
 }
 
