@@ -6,3 +6,10 @@ pub fn read(file_path: &str) -> HashMap<String, HashMap<String, String>> {
     toml::from_str(&toml_text).unwrap()
 }
 
+pub fn read_check(file_path: &str) -> 
+    Result<HashMap<String, HashMap<String, String>>, Box<dyn std::error::Error>> {
+
+    let toml_text = TextReader::open(file_path)?.read()?;
+    toml::from_str(&toml_text)?
+}
+
