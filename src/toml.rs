@@ -9,12 +9,12 @@ pub fn read(file_path: &str) -> HashMap<String, HashMap<String, String>> {
 
 pub fn read_check(file_path: &str) -> Result<HashMap<String, HashMap<String, String>>> {
     let toml_text = TextReader::open(file_path)
-        .with_context(|| format!("Failed to open file: {}", file_path))?
+        .with_context(|| format!("sugarflower::toml: Failed to open file: {}", file_path))?
         .read()
-        .with_context(|| format!("Failed to read from file: {}", file_path))?;
+        .with_context(|| format!("sugarflower::toml: Failed to read from file: {}", file_path))?;
 
     let config: HashMap<String, HashMap<String, String>> = toml::from_str(&toml_text)
-        .context("Failed to parse TOML data")?;
+        .context("sugarflower::toml: Failed to parse TOML data")?;
 
     Ok(config)
 }
