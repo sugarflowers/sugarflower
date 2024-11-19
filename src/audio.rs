@@ -14,6 +14,7 @@ use std::{
     sync::{
         Arc, Mutex,
     },
+    default::Default,
 };
 
 pub struct Audio {
@@ -61,6 +62,12 @@ impl Audio {
             }
             *playing.lock().unwrap() = false;
         }
+    }
+}
+
+impl Default for Audio {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
