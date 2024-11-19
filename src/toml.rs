@@ -14,7 +14,7 @@ pub fn read_check(file_path: &str) -> Result<HashMap<String, HashMap<String, Str
         .with_context(|| format!("sugarflower::toml: Failed to read from file: {}", file_path))?;
 
     let config: HashMap<String, HashMap<String, String>> = toml::from_str(&toml_text)
-        .context(|| format!("sugarflower::toml: Failed to parse TOML data: {}", file_path)())?;
+        .context(format!("sugarflower::toml: Failed to parse TOML data: {}", file_path))?;
 
     Ok(config)
 }
