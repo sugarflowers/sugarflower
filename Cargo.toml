@@ -12,6 +12,7 @@ anyhow = "1.0.71"
 csv = "1.2.1"
 rand = "0.8.5"
 toml = "0.8.13"
+kira = "0.9.6"
 
 [lib]
 path = "src/lib.rs"
