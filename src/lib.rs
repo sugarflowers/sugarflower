@@ -7,6 +7,7 @@ pub mod textreader;
 pub mod clip;
 pub mod automation;
 pub mod toml;
+pub mod audio;
 
 use crate::path::Path;
 use crate::env::get_env;
