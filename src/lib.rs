@@ -8,7 +8,7 @@ pub mod clip;
 pub mod automation;
 pub mod toml;
 pub mod audio;
-pub mod compress
+pub mod compress;
 
 use crate::path::Path;
 use crate::env::get_env;
