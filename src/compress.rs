@@ -5,7 +5,7 @@ use glob::glob;
 use crate::binaryfile::BinaryReader;
 
 
-fn compress(zip_filename:&str, target_path:&str) -> Result<()> {
+pub fn compress(zip_filename:&str, target_path:&str) -> Result<()> {
     let mut targets:Vec<String> = Vec::new();
     for entry in glob(target_path).unwrap() {
         match entry {
@@ -25,6 +25,6 @@ fn compress(zip_filename:&str, target_path:&str) -> Result<()> {
 }
 
 #[test]
-fn ziptest() {
+pub fn ziptest() {
     compress("test.zip", "./**/*.rs").unwrap();
 }
