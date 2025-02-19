@@ -3,7 +3,7 @@ use std::os::windows::ffi::OsStringExt;
 use std::mem::size_of;
 use winapi::shared::windef::{HWND, RECT};
 use winapi::um::winuser::{GetWindowRect, SetForegroundWindow, 
-    EnumWindows, GetWindowTextW, GetWindowTextLengthW};
+    EnumWindows, GetWindowTextW, GetWindowTextLengthW, GetForegroundWindow};
 
 use winapi::um::winuser::{mouse_event, MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP};
 use winapi::um::winuser::SetCursorPos;
@@ -26,12 +26,18 @@ use winapi::um::winuser::GetDC;
 /*
 * HWNDでウィンドウをアクティブにする
 */
-fn active(hwnd: HWND) {
+pub fn active(hwnd: HWND) {
     unsafe {
         SetForegroundWindow(hwnd);
     }
 }
 
+pub fn get_active() -> HWND {
+    unsafe {
+        return GetForegroundWindow();
+        
+    }
+}
 /*
 * HWNDのウィンドウのサイズを取得する。
 *
@@ -39,7 +45,7 @@ fn active(hwnd: HWND) {
 *
 * 座標は画面に対して絶対位置
 */
-fn get_window_rect(hwnd: HWND) -> RECT {
+pub fn get_window_rect(hwnd: HWND) -> RECT {
     let mut rect: RECT;
     unsafe {
         rect = std::mem::zeroed();
@@ -55,14 +61,14 @@ fn get_window_rect(hwnd: HWND) -> RECT {
 *     ex) get_window_infos();
 *
 */
-pub static mut WINDOW_INFOS: Vec<WindowInfo> = Vec::new();
+static mut WINDOW_INFOS: Vec<WindowInfo> = Vec::new();
 
-pub struct WindowInfo {
-    pub hwnd: HWND,
-    pub title: String,
+struct WindowInfo {
+    hwnd: HWND,
+    title: String,
 }
 
-pub unsafe extern "system" fn enum_windows_proc(hwnd: HWND, _lparam: isize) -> i32 {
+unsafe extern "system" fn enum_windows_proc(hwnd: HWND, _lparam: isize) -> i32 {
     let length = GetWindowTextLengthW(hwnd);
     let mut buffer = vec![0; length as usize + 1];
     GetWindowTextW(hwnd, buffer.as_mut_ptr(), length + 1);
@@ -157,7 +163,7 @@ pub fn release_key(vk: u16) {
 
 
 #[test]
-pub fn function_test() {
+fn function_test() {
     get_window_infos();
     unsafe {
 
@@ -188,4 +194,3 @@ pub fn function_test() {
         println!("position {:?}, {:?}", p.x, p.y);
     }
 }
-
